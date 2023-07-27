@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: CircleWipe
+  m_Controller: {fileID: 9100000, guid: b9ca4714788bd754c92dc06889ec3d14, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 262b2ade91ae33d4c976c4bdba271356, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 262b2ade91ae33d4c976c4bdba271356, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 4032f702ddf845e44a73eb5377f08e37, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 4032f702ddf845e44a73eb5377f08e37, type: 2}
