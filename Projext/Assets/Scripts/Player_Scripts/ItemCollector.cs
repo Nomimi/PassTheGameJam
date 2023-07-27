@@ -1,10 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class ItemCollector : MonoBehaviour
 {
+    [SerializeField] private Slider fireBar;
     public TextMeshProUGUI fruitsText;
 
     [SerializeField] private AudioSource collectionSoundEffect;
@@ -22,6 +22,13 @@ public class ItemCollector : MonoBehaviour
             Destroy(collision.gameObject);
             NonResetableValues.fruits++;
             fruitsText.text = "Fruits: " + NonResetableValues.fruits;
+
+            if (NonResetableValues.fruits > 5)
+            {
+                fireBar.value = fireBar.maxValue;
+            }
+            else { fireBar.value = NonResetableValues.fruits; }
+            
         }
     }
 }

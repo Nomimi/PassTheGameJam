@@ -1,17 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player_Movement : MonoBehaviour
 {
-    private Rigidbody2D rb;
-    private BoxCollider2D coll;
-    private Animator anim;
-
     [SerializeField] private LayerMask jumpableGround;
     
     [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpForce;
+
+    private Transform tf;
+    private Rigidbody2D rb;
+    private BoxCollider2D coll;
+    private Animator anim;
+
     private float dirX;
     private SpriteRenderer sprite;
 
@@ -21,6 +21,7 @@ public class Player_Movement : MonoBehaviour
 
     private void Awake()
     {
+        tf = GetComponent<Transform>();
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<BoxCollider2D>();
         anim = GetComponent<Animator>();
@@ -52,12 +53,14 @@ public class Player_Movement : MonoBehaviour
         if (dirX > 0f)
         {
             state = MovementState.running;
-            sprite.flipX = false;
+            tf.eulerAngles = Vector2.zero;
+            // sprite.flipX = false; -- Doesn't flip fire-point
         }
         else if (dirX < 0f)
         {
             state = MovementState.running;
-            sprite.flipX = true;
+            tf.eulerAngles = new Vector2(0, 180f);
+            // sprite.flipX = true;
         }
         else
         {
