@@ -1,28 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
-using System;
 
 public class Player_Life : MonoBehaviour
 {
-    private CheakPointHandler spawner;
-    private Player_Movement movement;
-    private Player_Collision col;
+    //private CheakPointHandler spawner;
+    //private Player_Movement movement;
 
     [SerializeField] private GameObject GameOverScreen;
     [SerializeField] private AudioSource deathSoundEffect;
     
+    // For Mobile
     [SerializeField] private GameObject buttons;
     [SerializeField] private GameObject HUD;
 
+    [Header("Pass in health bar sprites from HUD")]
     public Slider healthBar;
     public Image fill;
+
+    public UnityEvent onPlayerDeath;
+    public UnityEvent onRestart;
     
     private Rigidbody2D rb;
     private Animator anim;
-    private SpriteRenderer sprite;
+    //private SpriteRenderer sprite;
 
     private float health = 1f;
 
@@ -30,11 +31,9 @@ public class Player_Life : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        sprite = GetComponent<SpriteRenderer>(); 
 
-        col =  GetComponent<Player_Collision>();
-        movement = GetComponent<Player_Movement>();
-        spawner = FindObjectOfType<CheakPointHandler>();
+        //movement = GetComponent<Player_Movement>();
+        //spawner = FindObjectOfType<CheakPointHandler>();
     }
 
     private void Start()
@@ -42,9 +41,10 @@ public class Player_Life : MonoBehaviour
         healthBar.value = health;
     }
 
+    // Added a Damage Dealer to all enemies and traps to access this function.
     public void reduceHealth(float damage)
     {
-       setHealth(health - damage, true);
+       setHealth(health - damage/100, true);
 
         if(health <= 0)
         {
@@ -52,13 +52,10 @@ public class Player_Life : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    // Called during a level restart
+    public void RestoreHealth()
     {
-
-        if(collision.gameObject.CompareTag("Trap"))
-        {
-            setHealth(0, false);
-        }
+        setHealth(1f, true);
     }
 
     private void Die()
@@ -72,27 +69,28 @@ public class Player_Life : MonoBehaviour
 
     private void ShowGameOverScreen()
     {
-        buttons.SetActive(false);
-        HUD.SetActive(false);
-        GameOverScreen.SetActive(true);
+        onPlayerDeath.Invoke();
     }
 
-    public void RestartLevel()
-    {
-        //could not fix retart system, please so this!
-        //I can't either, someone please fix it I don't have time.
-        sprite.enabled = true;
-        anim.SetBool("spawn", true);
-        transform.position = new Vector2(NonResetableValues.lastPositionX, NonResetableValues.lastPositionY);
-        rb.bodyType = RigidbodyType2D.Dynamic;
-        movement.UpdateAnimationState();
-        GameOverScreen.SetActive(false);
-        buttons.SetActive(true);
-        HUD.SetActive(true);
-        setHealth(1, true);
-    }
+    // GUTTED THIS TO FIX RESTART: PTG - DAY3
+    //public void RestartLevel()
+    //{
+    //    //could not fix retart system, please do this!
+    //    //I can't either, someone please fix it I don't have time.
+    //    Player_Life player = FindObjectOfType<Player_Life>();
+    //    Player_Movement movement = player.GetComponent<Player_Movement>();
 
-    public void setHealth(float health, bool enable)
+
+    //    player.onRestart.Invoke();
+    //    player.GetComponent<Animator>().SetBool("spawn", true);
+    //    player.transform.position = new Vector2(NonResetableValues.lastPositionX, NonResetableValues.lastPositionY);
+    //    player.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+    //    movement.UpdateAnimationState();
+    //    //buttons.SetActive(true); -- For Mobile
+    //    player.setHealth(1, true);
+    //}
+
+    private void setHealth(float health, bool enable)
     {
         this.health = health;
         fill.enabled = enable;

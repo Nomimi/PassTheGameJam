@@ -1,20 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Bee_Enemy_Controller : MonoBehaviour
 {
-
-    private CapsuleCollider2D capsuleCollider;
     public float damage = 0.20f;
 
     private bool once = true;
     private float timer;
-
-    private void Awake()
-    {
-        capsuleCollider = GetComponent<CapsuleCollider2D>();
-    }
+    private Player_Life pLife;
 
     private void Update()
     {
@@ -37,6 +29,15 @@ public class Bee_Enemy_Controller : MonoBehaviour
         {
             once = true;
             gameObject.GetComponent<WaypointFollower>().speed = 2;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.name == "Player")
+        {
+            pLife = collision.gameObject.GetComponent<Player_Life>();
+            pLife.reduceHealth(damage);
         }
     }
 }

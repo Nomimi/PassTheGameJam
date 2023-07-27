@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Snail_Enemy_Controller : MonoBehaviour, EnemyKiller
@@ -17,6 +14,7 @@ public class Snail_Enemy_Controller : MonoBehaviour, EnemyKiller
     public float damage = 0.15f;
 
     private Enemy_Holder holder;
+    private Player_Life pLife;
 
     int once = 1;
 
@@ -37,6 +35,16 @@ public class Snail_Enemy_Controller : MonoBehaviour, EnemyKiller
         ){
             player_body.velocity = new Vector2(player_body.velocity.x, bounciness);
             KillEnemy();
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if( collision.gameObject.name == "Player")
+        {
+            pLife = collision.gameObject.GetComponent<Player_Life>();
+            pLife.reduceHealth(damage);
+
         }
     }
 
