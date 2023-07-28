@@ -46,18 +46,18 @@ public class SkinManager : MonoBehaviour
         skin.sprite = skins[NonResetableValues.selectedSkin];
     }
 
-    public void OnStartButton()
+    public void OnStartButton(string LevelToLoad)
     {
-        StartCoroutine(loadLevel());
+        StartCoroutine(loadLevel(LevelToLoad));
     }
 
-    IEnumerator loadLevel()
+    IEnumerator loadLevel(string LevelToLoad)
     {
         transition.SetTrigger("Start");
 
         yield return new WaitForSeconds(transitionTime);
 
-        SceneManager.LoadSceneAsync("Level 1");
+        SceneManager.LoadSceneAsync(LevelToLoad);
     }
 
 }

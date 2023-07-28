@@ -5,6 +5,22 @@ public class DamageDealer : MonoBehaviour
     [SerializeField] private float trapDamage;
     [SerializeField] private Player_Life pLife;
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.name == "Player")
+        {
+            pLife.reduceHealth(trapDamage);
+        }
+    }
+
+    //private void OnCollisionStay2D(Collision2D collision)
+    //{
+    //    if(collision.gameObject.name == "Player")
+    //    {
+    //        pLife.reduceHealth(trapDamage * Time.deltaTime);
+    //    }
+    //}
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.name == "Player")
@@ -15,7 +31,7 @@ public class DamageDealer : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if(collision.gameObject.name == "Player")
+        if (collision.gameObject.name == "Player")
         {
             pLife.reduceHealth(trapDamage * Time.deltaTime);
         }

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Snail_Enemy_Controller : MonoBehaviour, EnemyKiller
@@ -40,11 +41,11 @@ public class Snail_Enemy_Controller : MonoBehaviour, EnemyKiller
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if( collision.gameObject.name == "Player")
+        if (collision.gameObject.name == "Player" && collision.gameObject.transform.position.y <= this.transform.position.y + 0.2f)
         {
             pLife = collision.gameObject.GetComponent<Player_Life>();
             pLife.reduceHealth(damage);
-
+         
         }
     }
 
@@ -65,9 +66,17 @@ public class Snail_Enemy_Controller : MonoBehaviour, EnemyKiller
             if(
                 snail != null
             ){
-                Destroy(holder.enemyArray[i].transform.GetChild(i).gameObject, 0.3f);
+                StartCoroutine(DeathDelay());
+                //Destroy(holder.enemyArray[i].transform.GetChild(i).gameObject, 0.3f);
                 break;
             }
         } 
+    }
+
+    IEnumerator DeathDelay()
+    {
+        yield return new WaitForSeconds(0.8f);
+        Destroy(this.gameObject);
+
     }
 }

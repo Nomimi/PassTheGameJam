@@ -37,13 +37,13 @@ public class Player_Shooting : MonoBehaviour
 
         if
         (
-            NonResetableValues.fruits >= 5 &&
+            NonResetableValues.fruits >= 3 &&
             life.getHealth() != 0.0f &&
             once
         ){
             anim.SetBool("shoot", true);
             Instantiate(fireballPrefeb, firePoint.position, firePoint.rotation);
-            NonResetableValues.fruits -= 5;
+            NonResetableValues.fruits -= 3;
             collector.fruitsText.text = "Fruits: " + NonResetableValues.fruits;
             fireBar.value = NonResetableValues.fruits;
             Invoke("stopShootingAnimation", 0.4f);

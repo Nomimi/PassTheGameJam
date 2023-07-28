@@ -12,9 +12,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Level 1.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/Level 2 - A Living Hell.unity
-    guid: 7db0a342811ff7e458e844c3861b22b1
+    path: Assets/Scenes/Level 2.unity
+    guid: 8f12e3d43400e734691be298f9bdf967
   - enabled: 1
     path: Assets/Scenes/First Boss.unity
     guid: a9ef9d2ac92c05f4992a4b85c604d578
+  - enabled: 1
+    path: Assets/Scenes/Level 3.unity
+    guid: 14eebf119f59f244ab4ee44d87180f89
   m_configObjects: {}

@@ -16,14 +16,14 @@ public class ItemCollector : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Fruit"))
+        if (collision.gameObject.CompareTag("Fruit") && NonResetableValues.fruits < 6)
         {
             collectionSoundEffect.Play();
             Destroy(collision.gameObject);
             NonResetableValues.fruits++;
             fruitsText.text = "Fruits: " + NonResetableValues.fruits;
 
-            if (NonResetableValues.fruits > 5)
+            if (NonResetableValues.fruits > 6)
             {
                 fireBar.value = fireBar.maxValue;
             }
